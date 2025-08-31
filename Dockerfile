@@ -1,6 +1,7 @@
 FROM debian:stable-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV HOME=/workspace
 
 # 安装必要工具
 RUN apt-get update && apt-get install -y --no-install-recommends \
