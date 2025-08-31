@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM ubuntu:22.04 AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV HOME=/app
@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     bash curl wget ca-certificates iproute2 procps \
     && rm -rf /var/lib/apt/lists/*
 
+
+FROM ubuntu:22.04
 # Hugging Face 默认可写目录
 WORKDIR /app
 
