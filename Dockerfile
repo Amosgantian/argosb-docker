@@ -1,23 +1,23 @@
 FROM debian:stable-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV HOME=/app
 
 # 安装必要工具
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bash curl wget ca-certificates iproute2 procps \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /argosb
+WORKDIR /app
 
 # 拷贝脚本到容器中
-COPY argosb.sh /argosb/argosb.sh
-RUN chmod +x /argosb/argosb.sh
+COPY argosb.sh /app/argosb.sh
+RUN chmod +x /app/argosb.sh
 
-# 设置默认环境变量（可在 docker run -e 覆盖）
+# 默认环境变量（可在 docker run -e 覆盖）
 ENV vmpt="7860" \
     argo="y" \
-    agn="amsgs-amsrxp.hf.space" \
-    agk="eyJhIjoiZTZhZTliNTBjZDNkZjJkZGEyY2FhZjg2N2FlMWQ1ZWYiLCJ0IjoiMDc3ODMxMWYtOTY5NS00MTViLWE1ZDYtMDdiYzQ5ZTVjNzFmIiwicyI6IlpXWmpZemhtT0dFdFptVmhZUzAwWlRNNUxXemlNall0Tldaa01qSmpNamhrTW1JeSJ9"
+    agn="argosbhugging.yahaibio.qzz.io" \
+    agk="eyJhIjoiZTZhZTliNTBjZDNkZjJkZGEyY2FhZjg2N2FlMWQ1ZWYiLCJ0IjoiNjI4MWQ5MjEtMjZmZi00M2JhLWExODMtNTU3OTA1Yzk3NTNiIiwicyI6Ik1qZzRZVGxsWW1NdFl6WTFOQzAwTXpVMUxXSXlOelF0Tm1SbE0yVXlNRE14WkRVMyJ9"
 
-# 容器启动时执行脚本（注意这里改了！）
-ENTRYPOINT /bin/bash /argosb/argosb.sh
+ENTRYPOINT /bin/bash /app/argosb.sh
