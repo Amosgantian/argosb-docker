@@ -13,8 +13,16 @@ WORKDIR /app
 
 # 拷贝脚本到容器中
 COPY argosb.sh /app/argosb.sh
-RUN chmod +x /app/argosb.sh
-    chmod -R 777 /app; 
+
+RUN export DEBIAN_FRONTEND=noninteractive; \
+    apt-get update; \
+    apt-get install -y tzdata openssh-server curl ca-certificates wget vim net-tools supervisor unzip iputils-ping telnet git iproute2 --no-install-recommends; \
+    apt-get clean; \
+    rm -rf /var/lib/apt/lists/*; \
+    chmod +x /app/argosb.sh
+    chmod -R 777 /app; \
+    useradd -u 1000 -g 0 -m -s /bin/bash user
+
 
 # 设置默认环境变量（可在 docker run -e 覆盖）
 ENV vmpt="7860" \
