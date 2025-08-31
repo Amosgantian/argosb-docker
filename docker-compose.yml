@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  argosb:
+    build: .
+    container_name: argosb
+    restart: unless-stopped
+    env_file:
+      - .env   # 从 .env 文件加载环境变量
+    volumes:
+      - ./data:/argosb/data   # 可选，挂载数据目录，保存配置/日志
+    networks:
+      - argosb-net
+
+networks:
+  argosb-net:
+    driver: bridge
